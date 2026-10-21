@@ -1,0 +1,1392 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* PALETA PROFESIONAL (Gris, Negro, Amarillo) */
+:root {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-card-2: #151515;
+    --bg-card-hover: #282828;
+    --bg-casilla: #2a2a2a;
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaaaaa;
+    --yellow-accent: #f1c40f;
+    --yellow-hover: #d4ac0d;
+    --border-color: #333333;
+    --sombra-card: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ESTRUCTURA GLOBAL PANTALLA COMPLETA */
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    background-color: var(--bg-main);
+    background-image: radial-gradient(ellipse at 50% 0%, #272a30 0%, var(--bg-main) 62%);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.modo-claro {
+    --bg-main: #f4f6f9;
+    --bg-card: #ffffff;
+    --bg-card-2: #eef1f5;
+    --bg-card-hover: #f0f2f5;
+    --bg-casilla: #e2e8f0;
+    --text-primary: #222222;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --sombra-card: 0 6px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background-image: radial-gradient(ellipse at 50% 0%, #ffffff 0%, var(--bg-main) 70%);
+}
+
+/* ENCABEZADO */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background-color: var(--bg-card);
+    background-image: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.boton-tema {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.boton-tema:hover {
+    transform: scale(1.12);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.acciones-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+    flex: 1;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+}
+
+/* PANEL SUPERIOR: JUGADORES Y DADO CENTRAL */
+.jugadores-seccion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.jugador {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--bg-card);
+    background-image: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: var(--sombra-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.jugador-activo {
+    border-color: var(--yellow-accent);
+    box-shadow: 0 0 14px rgba(241, 196, 15, 0.3), var(--sombra-card);
+}
+
+.jugador-color {
+    width: 8px;
+    height: 40px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4), inset 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.color-bg-verde { background-color: #2ecc71 !important; }
+.color-bg-rojo { background-color: #e74c3c !important; }
+.color-bg-azul { background-color: #3498db !important; }
+.color-bg-amarillo { background-color: var(--yellow-accent) !important; }
+
+/* DADO CENTRAL EN EL PANEL SUPERIOR */
+.dado-central-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+}
+
+.dado-3d {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(145deg, #34353a, #17171a);
+    border: 2px solid var(--yellow-accent);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--yellow-accent);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    box-shadow:
+        inset 0 3px 5px rgba(255, 255, 255, 0.18),
+        inset 0 -6px 10px rgba(0, 0, 0, 0.65),
+        0 10px 18px rgba(0, 0, 0, 0.55),
+        0 0 14px rgba(241, 196, 15, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dado-3d.animar-dado {
+    animation: girodado 0.5s ease-in-out;
+}
+
+@keyframes girodado {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); }
+    30%  { transform: translateY(-16px) rotate(140deg) scale(1.15); }
+    60%  { transform: translateY(-4px) rotate(250deg) scale(1.08); }
+    80%  { transform: translateY(0) rotate(340deg) scale(0.96); }
+    100% { transform: translateY(0) rotate(360deg) scale(1); }
+}
+
+/* ZONA DE JUEGO (ESTRUCTURA DE 3 COLUMNAS) */
+.zona-juego {
+    flex: 1;
+    display: flex;
+    gap: 15px;
+    min-height: 0;
+}
+
+/* COLUMNA 1: TABLERO (IZQUIERDA) CON MARCO AMARILLO */
+.tablero-contenedor {
+    flex: 3;
+    background-color: var(--bg-card);
+    background-image: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    border: 2px solid var(--yellow-accent);
+    box-shadow: 0 0 18px rgba(241, 196, 15, 0.22), 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.tablero-contenedor h1 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+/* TABLERO CON IMAGEN DE FONDO Y ENCAJE PERFECTO */
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 0px;
+    /* Cuadrado que usa todo el ancho posible sin pasarse del alto de la pantalla.
+       Si se corta abajo, subí el 260px; si sobra espacio, bajalo. */
+    width: min(100%, calc(100vh - 260px));
+    height: auto;
+    aspect-ratio: 1;
+    background-image: url('images/tablero-fondo.jpg (1) - copia_cleanup.jpeg');
+   
+    background-size: 105% 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 6px solid #111111;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 2px var(--yellow-accent),
+        0 18px 32px rgba(0, 0, 0, 0.55),
+        inset 0 0 38px rgba(0, 0, 0, 0.5);
+}
+
+.tablero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 28% 18%, rgba(255, 252, 220, 0.2) 0%, rgba(255, 252, 220, 0) 55%),
+        radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.32) 100%);
+}
+
+.tablero.tablero-error {
+    animation: sacudir 0.38s ease-in-out;
+}
+
+@keyframes sacudir {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+/* CASILLAS TRANSPARENTES SOBRE EL FONDO */
+.casilla {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease;
+    position: relative;
+}
+
+.casilla:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.casilla.casilla-seleccionada {
+    outline: 2px solid var(--yellow-accent);
+    outline-offset: -2px;
+    background-color: rgba(241, 196, 15, 0.2);
+}
+
+.casilla.destino-valido {
+    background-color: rgba(241, 196, 15, 0.18);
+    box-shadow: inset 0 0 0 2px rgba(241, 196, 15, 0.65);
+    animation: latirDestino 1.2s ease-in-out infinite;
+}
+
+.casilla.destino-ocupado {
+    background-color: rgba(231, 76, 60, 0.24);
+    box-shadow: inset 0 0 0 2px rgba(231, 76, 60, 0.8);
+}
+
+@keyframes latirDestino {
+    0%, 100% { background-color: rgba(241, 196, 15, 0.14); }
+    50% { background-color: rgba(241, 196, 15, 0.3); }
+}
+
+.casilla.conquista-flash::after {
+    content: '';
+    position: absolute;
+    inset: -35%;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 6;
+    background: radial-gradient(circle, rgba(255, 230, 120, 0.9) 0%, rgba(241, 196, 15, 0.4) 35%, rgba(241, 196, 15, 0) 70%);
+    animation: destelloConquista 0.95s ease-out forwards;
+}
+
+@keyframes destelloConquista {
+    0%   { transform: scale(0.2); opacity: 1; }
+    100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* COLUMNA 2: ESTADO Y CONTROLES (CENTRO) */
+.panel-control {
+    flex: 1;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.estado-partida, .controles {
+    background-color: var(--bg-card);
+    background-image: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--sombra-card);
+}
+
+.estado-partida h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--yellow-accent);
+}
+
+.dato {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.dato span {
+    color: var(--text-secondary);
+}
+
+/* BOTÓN AMARILLO */
+.boton-principal {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: var(--yellow-accent);
+    background-image: linear-gradient(180deg, #f8d637 0%, var(--yellow-accent) 55%, #d9ae0c 100%);
+    color: #121212;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #a98a08, 0 6px 12px rgba(0, 0, 0, 0.35);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.2s ease;
+}
+
+.boton-principal:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+}
+
+.boton-principal:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #a98a08, 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.direcciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    gap: 6px;
+}
+
+.fila-direcciones {
+    display: flex;
+    gap: 6px;
+}
+
+.direcciones button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-casilla);
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+    transition: all 0.15s ease;
+}
+
+.direcciones button:hover {
+    background-color: var(--yellow-accent);
+    color: #121212;
+    border-color: var(--yellow-accent);
+    box-shadow: 0 3px 0 #a98a08, 0 0 10px rgba(241, 196, 15, 0.45);
+}
+
+.direcciones button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #a98a08;
+}
+
+/* BOTÓN CÓMO JUGAR */
+.boton-como-jugar {
+    width: 100%;
+    padding: 11px;
+    background-color: transparent;
+    color: var(--yellow-accent);
+    border: 2px solid var(--yellow-accent);
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.boton-como-jugar:hover {
+    background-color: var(--yellow-accent);
+    color: #121212;
+    box-shadow: 0 0 12px rgba(241, 196, 15, 0.4);
+}
+
+/* COLUMNA 3: HISTORIAL VERTICAL (DERECHA) - MÁS ANGOSTO */
+.historial {
+    flex: 0.8;
+    min-width: 170px;
+    max-width: 260px;
+    background-color: var(--bg-card);
+    background-image: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    padding: 14px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--sombra-card);
+    min-height: 0;
+}
+
+.historial h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--yellow-accent);
+}
+
+.historial-lista {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 5px;
+}
+
+.historial-lista::-webkit-scrollbar {
+    width: 6px;
+}
+.historial-lista::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+.historial-lista::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow-accent);
+}
+
+.movimiento {
+    font-size: 0.82rem;
+    padding: 6px 8px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--yellow-accent);
+    border-radius: 4px;
+    color: var(--text-primary);
+    animation: entrarMovimiento 0.3s ease-out;
+}
+
+@keyframes entrarMovimiento {
+    from { opacity: 0; transform: translateX(10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.sin-movimientos {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* MODALES */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    animation: aparecerModal 0.3s ease-out;
+}
+
+@keyframes aparecerModal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.modal-contenido {
+    background: var(--bg-card);
+    background-image: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    padding: 25px;
+    border-radius: 12px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    color: var(--text-primary);
+}
+
+.opcion-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.opcion-menu input, .opcion-menu select {
+    padding: 9px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-casilla);
+    color: var(--text-primary);
+}
+
+/* MODAL DE VICTORIA */
+.victoria-contenido {
+    text-align: center;
+    border: 2px solid var(--yellow-accent);
+    box-shadow: 0 0 25px rgba(241, 196, 15, 0.3);
+}
+
+.victoria-ganador {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--yellow-accent);
+    margin: 8px 0;
+}
+
+.victoria-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 6px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.stat-box span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.stat-box strong {
+    font-size: 0.95rem;
+    color: var(--yellow-accent);
+}
+
+/* MODAL DEL MANUAL */
+.modal-manual-contenido {
+    width: 450px;
+    max-width: 90vw;
+    max-height: 80vh;
+}
+
+.manual-cuerpo {
+    overflow-y: auto;
+    max-height: 55vh;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.manual-cuerpo strong {
+    color: var(--yellow-accent);
+}
+
+.manual-cuerpo ul {
+    margin-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.manual-cuerpo::-webkit-scrollbar {
+    width: 6px;
+}
+
+.manual-cuerpo::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+/* FICHAS: .ficha-jugador es el contenedor y .ficha-imagen lleva el filtro hue-rotate que pasa el caballero rojo al color elegido */
+.ficha-jugador {
+    position: relative;
+    width: 92%;
+    height: 92%;
+    flex-shrink: 0;
+    border-radius: 50%;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+
+.ficha-imagen {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: url('images/ficha.jpeg');
+    background-size: 112%;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: hue-rotate(var(--giro, 0deg));
+    pointer-events: none;
+}
+
+.ficha-jugador::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 42%),
+        radial-gradient(circle at 72% 82%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+.ficha-jugador.ficha-seleccionada {
+    box-shadow: 0 0 0 2px var(--yellow-accent), 0 0 12px rgba(241, 196, 15, 0.8), 0 6px 8px rgba(0, 0, 0, 0.5);
+    animation: flotarFicha 1.1s ease-in-out infinite;
+}
+
+@keyframes flotarFicha {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+}
+
+.ficha-jugador.ficha-nueva {
+    animation: aparecerFicha 0.7s cubic-bezier(0.2, 1.5, 0.4, 1) 0.35s backwards;
+}
+
+@keyframes aparecerFicha {
+    0%   { transform: scale(0) rotate(-90deg); opacity: 0; }
+    60%  { opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* CASTILLOS */
+.casa-castillo {
+    width: 88%;
+    height: 88%;
+    background-image: url('images/castillo.jpeg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+    pointer-events: none;
+}
+
+/* CARTELES DE AVISO Y ERROR (reemplazan a los alert) */
+#contenedor-mensajes {
+    position: fixed;
+    top: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: min(430px, 92vw);
+    pointer-events: none;
+}
+
+.mensaje {
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--yellow-accent);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    animation: entrarMensaje 0.3s ease-out;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mensaje.saliendo {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.mensaje-error { border-left-color: #e74c3c; }
+.mensaje-aviso { border-left-color: var(--yellow-accent); }
+.mensaje-info  { border-left-color: #3498db; }
+.mensaje-exito { border-left-color: #2ecc71; }
+
+.mensaje-icono {
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.mensaje-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+.mensaje-texto strong {
+    font-size: 0.98rem;
+}
+
+.mensaje-texto span {
+    color: var(--text-secondary);
+}
+
+@keyframes entrarMensaje {
+    from { opacity: 0; transform: translateY(-14px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* PANTALLA DE INICIO */
+#pantalla-carga {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #0b0b0b;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+#pantalla-carga.saliendo {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.carga-fondo {
+    position: absolute;
+    inset: -40px;
+    background: url('images/inicio.jpg') center / cover no-repeat;
+    filter: blur(24px) brightness(0.45) saturate(1.1);
+}
+
+.carga-escena {
+    position: relative;
+    flex-shrink: 0;
+    aspect-ratio: 1440 / 808;
+    width: min(100vw, calc(100vh * 1440 / 808));
+    background: url('images/inicio.jpg') center / 100% 100% no-repeat;
+    box-shadow: 0 0 70px rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.carga-escena.visible {
+    opacity: 1;
+}
+
+/* Botón invisible colocado justo encima del Start dibujado en la imagen */
+.carga-boton-start {
+    position: absolute;
+    left: 37.64%;
+    top: 72.28%;
+    width: 24.72%;
+    height: 17.08%;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, background-color 0.2s ease, transform 0.12s ease;
+}
+
+.carga-boton-start.cargando {
+    cursor: progress;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.carga-boton-start:not(.cargando) {
+    animation: pulsoStart 1.8s ease-in-out infinite;
+}
+
+.carga-boton-start:not(.cargando):hover {
+    transform: scale(1.04);
+    background: rgba(255, 230, 150, 0.12);
+    box-shadow: 0 0 28px rgba(255, 205, 70, 0.85);
+    animation: none;
+}
+
+.carga-boton-start:focus {
+    outline: none;
+}
+
+.carga-boton-start:focus-visible {
+    box-shadow: 0 0 24px rgba(255, 205, 70, 0.8);
+}
+
+.carga-boton-start:not(.cargando):active {
+    transform: scale(0.98);
+}
+
+@keyframes pulsoStart {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 205, 70, 0); }
+    50%      { box-shadow: 0 0 22px rgba(255, 205, 70, 0.6); }
+}
+
+.carga-progreso-contenedor {
+    position: absolute;
+    left: 50%;
+    top: 91.5%;
+    transform: translateX(-50%);
+    width: 24.7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.4s ease;
+}
+
+.carga-progreso-contenedor.oculto {
+    opacity: 0;
+}
+
+.carga-barra {
+    width: 100%;
+    height: 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.carga-progreso {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #b8900a, #f1c40f, #fff3b0);
+    box-shadow: 0 0 8px rgba(241, 196, 15, 0.8);
+    transition: width 0.15s linear;
+}
+
+.carga-estado {
+    font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+    color: #e8dcb0;
+    text-shadow: 0 1px 3px #000;
+}
+
+.carga-titulo-alt,
+.carga-texto-start {
+    display: none;
+}
+
+.carga-escena.sin-imagen {
+    background: radial-gradient(ellipse at 50% 35%, #34301a 0%, #181714 55%, #0c0c0c 100%);
+}
+
+.carga-escena.sin-imagen .carga-titulo-alt {
+    display: block;
+    position: absolute;
+    top: 22%;
+    width: 100%;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    background: linear-gradient(180deg, #fff3b0 0%, #f1c40f 55%, #b8900a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.carga-escena.sin-imagen .carga-texto-start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #151515;
+    font-size: clamp(1rem, 2.4vw, 1.6rem);
+}
+
+.carga-escena.sin-imagen .carga-boton-start {
+    background: linear-gradient(180deg, #f8d637 0%, #f1c40f 55%, #d9ae0c 100%);
+    box-shadow: 0 5px 0 #a98a08, 0 10px 22px rgba(0, 0, 0, 0.5);
+}
+
+.carga-escena.sin-imagen .carga-boton-start.cargando {
+    background: rgba(241, 196, 15, 0.35);
+    box-shadow: none;
+}
+
+/* CONFIGURACIÓN DEL BOT (URL) */
+.texto-ayuda {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+.texto-ayuda code {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--yellow-accent);
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.82rem;
+}
+
+.estado-bot {
+    min-height: 1.2em;
+    font-size: 0.86rem;
+    line-height: 1.35;
+    color: var(--text-secondary);
+}
+
+.estado-bot.ok       { color: #2ecc71; }
+.estado-bot.error    { color: #ff7a6b; }
+.estado-bot.aviso    { color: var(--yellow-accent); }
+.estado-bot.cargando { color: var(--text-secondary); }
+
+.botones-bot {
+    display: flex;
+    gap: 10px;
+}
+
+.botones-bot button {
+    flex: 1;
+    width: auto;
+}
+
+.botones-bot button:disabled,
+.modal .boton-principal:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#indicador-bot {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translate(-50%, 20px);
+    z-index: 550;
+    padding: 9px 18px;
+    border-radius: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--yellow-accent);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#indicador-bot.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    animation: latirIndicador 1.2s ease-in-out infinite;
+}
+
+@keyframes latirIndicador {
+    0%, 100% { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 0 0 rgba(241, 196, 15, 0); }
+    50%      { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 0 14px rgba(241, 196, 15, 0.45); }
+}
+
+@media (max-width: 1200px) {
+    .encabezado { padding: 10px 20px; }
+    .contenedor { padding: 10px 15px; gap: 10px; }
+    .zona-juego { gap: 10px; }
+    .tablero-contenedor { flex: 2.5; padding: 10px; }
+    .panel-control { min-width: 210px; }
+    .estado-partida, .controles { padding: 14px; }
+    .historial { min-width: 150px; max-width: 210px; padding: 12px; }
+    .jugador { padding: 10px 15px; gap: 10px; }
+    .dado-3d { width: 58px; height: 58px; font-size: 1.7rem; }
+    .jugador-color { height: 35px; }
+}
+
+@media (max-width: 900px) {
+    html, body {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .contenedor {
+        height: auto;
+        min-height: calc(100vh - 60px);
+        overflow: visible;
+    }
+
+    .zona-juego {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+
+    .tablero-contenedor {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .panel-control {
+        flex: 1 1 calc(60% - 10px);
+        min-width: 0;
+    }
+
+    .historial {
+        flex: 1 1 calc(40% - 10px);
+        min-width: 0;
+        max-width: none;
+    }
+
+    .tablero {
+        width: min(100%, 75vh);
+    }
+
+    .modal-contenido {
+        width: min(340px, 90vw);
+    }
+}
+
+@media (max-width: 768px) {
+    html, body {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body { width: 100%; }
+
+    .encabezado {
+        height: auto;
+        min-height: 55px;
+        padding: 10px 14px;
+    }
+
+    .logo { font-size: 1.15rem; }
+    .boton-tema { font-size: 1.2rem; }
+
+    .contenedor {
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 55px);
+        padding: 8px;
+        gap: 10px;
+        overflow: visible;
+    }
+
+    .jugadores-seccion {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .jugador {
+        flex: 1 1 calc(50% - 45px);
+        min-width: 0;
+        padding: 8px 10px;
+        gap: 8px;
+        border-radius: 10px;
+    }
+
+    .jugador-color {
+        width: 6px;
+        height: 32px;
+    }
+
+    .dado-central-container {
+        order: 3;
+        flex: 1 1 100%;
+        min-width: 0;
+        margin-top: 2px;
+    }
+
+    .dado-3d {
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+
+    .zona-juego {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        overflow: visible;
+    }
+
+    .tablero-contenedor {
+        order: 1;
+        width: 100%;
+        flex: none;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    .tablero-contenedor h1 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+
+    .tablero {
+        width: min(100%, calc(100vw - 34px));
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        border-width: 4px;
+    }
+
+    .casilla { font-size: 1rem; }
+    .ficha-jugador { width: 88%; height: 88%; }
+    .casa-castillo { width: 84%; height: 84%; }
+
+    .panel-control {
+        order: 2;
+        width: 100%;
+        flex: none;
+        min-width: 0;
+        gap: 10px;
+    }
+
+    .estado-partida, .controles {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .estado-partida h2 { font-size: 1rem; }
+    .dato { font-size: 0.9rem; margin: 8px 0; }
+    .boton-principal { padding: 12px; min-height: 44px; }
+    .boton-como-jugar { min-height: 44px; }
+
+    .direcciones {
+        margin-top: 12px;
+        gap: 5px;
+    }
+
+    .fila-direcciones { gap: 5px; }
+
+    .direcciones button {
+        width: 46px;
+        height: 46px;
+        font-size: 1rem;
+        touch-action: manipulation;
+    }
+
+    .historial {
+        order: 3;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        min-height: 180px;
+        max-height: 280px;
+        padding: 12px;
+    }
+
+    .historial h2 { font-size: 0.95rem; }
+    .historial-lista { max-height: 210px; }
+
+    .modal {
+        padding: 12px;
+        overflow-y: auto;
+    }
+
+    .modal-contenido {
+        width: 100%;
+        max-width: 400px;
+        max-height: 90vh;
+        padding: 18px;
+        overflow-y: auto;
+    }
+
+    .modal-manual-contenido {
+        width: 100%;
+        max-width: 450px;
+        max-height: 90vh;
+    }
+
+    .manual-cuerpo {
+        max-height: 65vh;
+        font-size: 0.88rem;
+    }
+
+    .victoria-stats { gap: 5px; }
+    .stat-box { padding: 8px 4px; }
+
+    #contenedor-mensajes {
+        top: 65px;
+        width: calc(100vw - 20px);
+        max-width: none;
+    }
+
+    .mensaje {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .mensaje-icono { font-size: 1.2rem; }
+    .mensaje-texto { font-size: 0.82rem; }
+    .mensaje-texto strong { font-size: 0.9rem; }
+
+    #indicador-bot {
+        bottom: 12px;
+        width: max-content;
+        max-width: calc(100vw - 20px);
+        padding: 8px 14px;
+        font-size: 0.82rem;
+    }
+
+    .carga-escena {
+        width: 100vw;
+        max-width: 100vw;
+    }
+
+    .carga-boton-start { border-radius: 8px; }
+    .carga-progreso-contenedor { width: 30%; }
+}
+
+@media (max-width: 480px) {
+    .encabezado { padding: 8px 10px; }
+    .logo { font-size: 1rem; }
+
+    .contenedor {
+        padding: 6px;
+        gap: 8px;
+    }
+
+    .jugador {
+        padding: 7px 8px;
+        gap: 6px;
+    }
+
+    .jugador-color {
+        width: 5px;
+        height: 28px;
+    }
+
+    .dado-3d {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        border-radius: 11px;
+    }
+
+    .tablero-contenedor { padding: 6px; }
+
+    .tablero {
+        width: calc(100vw - 26px);
+        border-width: 3px;
+    }
+
+    .casilla { font-size: 0.85rem; }
+    .ficha-jugador { width: 84%; height: 84%; }
+    .casa-castillo { width: 80%; height: 80%; }
+
+    .estado-partida, .controles { padding: 11px; }
+    .dato { font-size: 0.82rem; }
+
+    .boton-principal,
+    .boton-como-jugar {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .direcciones button {
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
+    }
+
+    .historial {
+        min-height: 160px;
+        max-height: 230px;
+        padding: 10px;
+    }
+
+    .movimiento {
+        font-size: 0.76rem;
+        padding: 5px 7px;
+    }
+
+    .modal { padding: 8px; }
+
+    .modal-contenido {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .manual-cuerpo { font-size: 0.82rem; }
+
+    #contenedor-mensajes {
+        top: 60px;
+        width: calc(100vw - 12px);
+    }
+
+    .mensaje { padding: 8px 10px; }
+    .mensaje-icono { font-size: 1.1rem; }
+    .mensaje-texto { font-size: 0.78rem; }
+}
+
+@media (min-width: 1600px) {
+    .contenedor { max-width: 1800px; }
+
+    .tablero {
+        width: min(100%, calc(100vh - 240px));
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .boton-principal:hover,
+    .boton-como-jugar:hover,
+    .direcciones button:hover,
+    .casilla:hover {
+        transform: none;
+    }
+
+    .boton-principal,
+    .boton-como-jugar {
+        min-height: 44px;
+    }
+
+    .direcciones button {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .casilla,
+    .ficha-jugador,
+    .dado-3d,
+    .direcciones button {
+        touch-action: manipulation;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
